@@ -24,4 +24,4 @@ script:
 
 notifications:
   slack:
-    secure: sZkPPlbPzxSIot9FPUhFzYXz6WO6xe93BVq7eeUtoK+Xamn2qyTHLoxkfRLCifKo+ekQB+0E1X3FhnlR5ToobmuKgq6dZpy8WooYwU6W+Z/jjmle1dgF+LAWAK7XVlP4XA41hzDTtUNEoZ8QpRgPvQcPJSkS3YXjj/QOLYjs1oE
+    secure: atlas-station:sZkPPlbPzxSIot9FPUhFzYXz6WO6xe93BVq7eeUtoK+Xamn2qyTHLoxkfRLCifKo+ekQB+0E1X3FhnlR5ToobmuKgq6dZpy8WooYwU6W+Z/jjmle1dgF+LAWAK7XVlP4XA41hzDTtUNEoZ8QpRgPvQcPJSkS3YXjj/QOLYjs1oE
