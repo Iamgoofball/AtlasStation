@@ -1,10 +1,10 @@
-##Hippie Station 13
+##Atlas Station 13
 
 [![Build Status](https://travis-ci.org/AtlasStation/AtlasStation.svg?branch=master)](https://travis-ci.org/AtlasStation/AtlasStation)
 
 
-**Website:** http://www.hippie-station-13.com/forums/index.php <BR>
-**Code:** https://github.com/HippieStationCode/HippieStation13 <BR>
+**Website:** http://atlas-station.com/<BR>
+**Code:** https://github.com/AtlasStation/AtlasStation <BR>
 **Wiki** http://wiki.hippie-station-13.com/Main_Page<BR>
 **IRC:** irc://irc.rizon.net/Codervan <BR>
 
