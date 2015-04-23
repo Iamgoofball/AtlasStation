@@ -135,7 +135,7 @@
 
 	if (T == "ping")
 		var/x = 1
-		for (var/client/C in clients)
+		for (var/client/C)
 			x++
 		return x
 
@@ -148,7 +148,6 @@
 
 	else if (T == "status")
 		var/list/s = list()
-		// Please add new status indexes under the old ones, for the server banner (until that gets reworked)
 		s["version"] = game_version
 		s["mode"] = master_mode
 		s["respawn"] = config ? abandon_allowed : 0
@@ -156,36 +155,33 @@
 		s["vote"] = config.allow_vote_mode
 		s["ai"] = config.allow_ai
 		s["host"] = host ? host : null
+		s["players"] = list()
+		s["map_name"] = map_name ? map_name : "Unknown"
+		s["gamestate"] = 1
+		if(ticker)
+			s["gamestate"] = ticker.current_state
 
+		s["revision"] = revdata.revision
+		s["revision_date"] = revdata.date
+		var/n = 0
 		var/admins = 0
+
 		for(var/client/C in clients)
 			if(C.holder)
 				if(C.holder.fakekey)
 					continue	//so stealthmins aren't revealed by the hub
 				admins++
+			s["player[n]"] = C.key
+			n++
+		s["players"] = n
 
-		s["active_players"] = get_active_player_count()
-		s["players"] = clients.len
-		s["revision"] = revdata.revision
-		s["revision_date"] = revdata.date
+		if(revdata)	s["revision"] = revdata.revision
 		s["admins"] = admins
-		s["gamestate"] = 1
-		if(ticker)
-			s["gamestate"] = ticker.current_state
-		s["map_name"] = map_name ? map_name : "Unknown"
 
 		return list2params(s)
-	else if (copytext(T,1,9) == "announce")
-		var/input[] = params2list(T)
-		if(global.comms_allowed)
-			if(input["key"] != global.comms_key)
-				return "Bad Key"
-			else
-				#define CHAT_PULLR 2048
-				for(var/client/C in clients)
-					if(C.prefs && (C.prefs.toggles & CHAT_PULLR))
-						C << "<span class='announce'>PR: [input["announce"]]</span>"
-				#undef CHAT_PULLR
+	//else if (findtext(T,"notes:"))
+	//	var/notekey = copytext(T, 7)
+	//	return list2params(exportnotes(notekey))
 
 /world/Reboot(var/reason)
 #ifdef dellogging

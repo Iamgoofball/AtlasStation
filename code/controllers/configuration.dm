@@ -65,8 +65,15 @@
 	var/githuburl = "https://www.github.com/tgstation/-tg-station" //default github
 
 	var/forbid_singulo_possession = 0
-	var/useircbot = 0
-
+	
+	var/use_irc_bot = 0
+	var/irc_bot_host = "localhost"
+	var/irc_bot_port = 45678
+	var/irc_bot_server_id = 45678
+	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
+	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
+	var/comms_password = ""
+	
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
@@ -283,18 +290,26 @@
 					config.popup_admin_pm = 1
 				if("allow_holidays")
 					config.allow_holidays = 1
-				if("useircbot")
-					useircbot = 1
+				if("use_irc_bot")
+					use_irc_bot = 1
 				if("ticklag")
 					Ticklag = text2num(value)
 				if("tickcomp")
 					Tickcomp = 1
 				if("automute_on")
 					automute_on = 1
-				if("comms_key")
-					global.comms_key = value
+				if("comms_password")
+					global.comms_password = value
 					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
-						global.comms_allowed = 1
+						global.comms_password = 1
+				
+				if("irc_bot_host")
+					config.irc_bot_host = value
+				if("irc_bot_port")
+					config.irc_bot_port = text2num(value)
+				if("irc_bot_server_id")
+					config.irc_bot_server_id = value
+
 				if("see_own_notes")
 					config.see_own_notes = 1
 				else
@@ -425,6 +440,16 @@
 					config.mutant_races				= 1
 				if("mutant_colors")
 					config.mutant_colors			= 1
+				if ("nudge_script_path")
+					config.nudge_script_path = value
+				if("python_path")
+					if(value)
+						config.python_path = value
+					else
+						if(world.system_type == UNIX)
+							config.python_path = "/usr/bin/env python2"
+						else //probably windows, if not this should work anyway
+							config.python_path = "python"
 				else
 					diary << "Unknown setting in configuration: '[name]'"
 

@@ -138,8 +138,8 @@ BANAPPEALS http://atlas-station.com/forums/ban-appeals.8/
 ## Remove the # to allow special 'Easter-egg' events on special holidays such as seasonal holidays and stuff like 'Talk Like a Pirate Day' :3 YAARRR
 ALLOW_HOLIDAYS
 
-##Remove the # mark if you are going to use the SVN irc bot to relay adminhelps
-#USEIRCBOT
+##Remove the # mark if you are going to use the IRC bot
+#USE_IRC_BOT
 
 ##Defines the ticklag for the world.  0.9 is the normal one, 0.6 is smoother.
 TICKLAG 0.6
@@ -151,9 +151,12 @@ TICKCOMP 0
 AUTOMUTE_ON
 
 ## Communication key for receiving data through world/Topic(), you don't want to give this out
-#COMMS_KEY default_pwd
+#COMMS_PASSWORD default_pwd
 
 ## Location of byond achievement hub
 ACHIEVEMENT_HUB
 ## Password for byond 
 ACHIEVEMENT_PASSWORD
+
+## Location of the nudge.py script
+NUDGE_SCRIPT_PATH nudge.py 
