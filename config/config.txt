@@ -114,19 +114,19 @@ GUEST_BAN
 SERVER 
 
 ## forum address
-FORUMURL http://www.hippie-station-13.com
+FORUMURL http://www.atlas-station.com
 
 ## Wiki address
-WIKIURL http://wiki.hippie-station-13.com
+WIKIURL http://wiki.atlas-station.com
 
 ##Rules address
-RULESURL http://hippie-station-13.com/misc/darules.shtml
+RULESURL http://atlas-station.com/pages/server-rules/
 
 ##Github address
-GITHUBURL https://github.com/HippieStationCode/HippieStation13/
+GITHUBURL https://github.com/AtlasStation/AtlasStation
 
 ## Ban appeals URL - usually for a forum or wherever people should go to contact your admins.
-BANAPPEALS http://hippie-station-13.com/forums/viewforum.php?f=8
+BANAPPEALS http://atlas-station.com/forums/ban-appeals.8/
 
 ##Remove the # mark infront of this to forbid admins from possessing the singularity.
 #FORBID_SINGULO_POSSESSION
@@ -156,6 +156,4 @@ AUTOMUTE_ON
 ## Location of byond achievement hub
 ACHIEVEMENT_HUB
 ## Password for byond 
-ACHIEVEMENT_PASSWORD 
-
-##Why do you guys keep reuploading this with the hub stuff still set.
+ACHIEVEMENT_PASSWORD
