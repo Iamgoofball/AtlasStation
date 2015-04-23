@@ -250,7 +250,7 @@
 	power -= (power/500)**3
 
 	// Lighting based on power output.
-	SetLuminosity(Clamp(round(Clamp(power/max_power,0,1)*max_luminosity),0,max_luminosity))
+	SetLuminosity(Clamp(round(Clamp(power/max_power,0,1)*max_luminosity), 4, max_luminosity))
 
 	return 1
 
