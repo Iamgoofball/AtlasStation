@@ -169,6 +169,9 @@
 			target = locate(/area/holodeck/source_plating)
 			if(target)
 				loadProgram(target)
+			else
+				world.log << "Unable to find a holodeck!?!? - Did it get removed from the map?"
+				message_admins("Unable to find a holodeck!?!? - Did it get removed from the map?")
 			active = 0
 			for(var/mob/M in range(10,src))
 				M.show_message("The holodeck overloads!")

@@ -143,7 +143,7 @@ ALLOW_HOLIDAYS
 
 ##Defines the ticklag for the world.  0.9 is the normal one, 0.6 is smoother.
 TICKLAG 0.6
-## DO NOT CHANGE THE TICKLAG, 0.3 WAS WAY too low. Ticks do more than just movement, they control a TON of stuff in the game. ffs leave it at 0.6 you fuckin' shitfucker.
+
 ## Defines if Tick Compensation is used.  It results in a minor slowdown of movement of all mobs, but attempts to result in a level movement speed across all ticks.  Recommended if tickrate is lowered.
 TICKCOMP 0
 
