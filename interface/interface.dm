@@ -39,18 +39,18 @@
 	set name = "Teamspeak"
 	set desc = "Join Teamspeak"
 	set hidden = 1
-	if(alert("This will attempt to join the teamspeak server. If it doesn't work you can join with details from the forums. Are you sure you wish to join?",,"Yes","No")=="No")
+	if(alert("This will open a page with the Teamspeak details on, Are you sure?",,"Yes","No")=="No")
 		return
-	src << link("http://hawkeye.jamiehankins.co.uk/hippie.html")
+	src << link("http://atlas-station.com/pages/teamspeak/")
 	return
 
 /client/verb/reportissue()
 	set name = "Report issue"
 	set desc = "Report an issue"
 	set hidden = 1
-	if(alert("This will open our GitLab issue reporter in your browser. Are you sure? ( You will have to make an account!)",,"Yes","No")=="No")
+	if(alert("This will open our GitHub issue reporter in your browser. Are you sure? ( You will have to make an account!)",,"Yes","No")=="No")
 		return
-	src << link("http://github.com/HippieStationCode/HippieStation13/issues")
+	src << link("https://github.com/AtlasStation/AtlasStation/issues")
 	return
 
 /client/verb/hotkeys_help()

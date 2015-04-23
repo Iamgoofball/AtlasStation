@@ -237,7 +237,7 @@
 	if (config && config.server_name)
 		s += "<b>[config.server_name]</b> &#8212; "
 
-	s += "<h2><b><a href=\"http://hippie-station-13.com\">[station_name()]</a></b></h2>"
+	s += "<h2><b><a href=\"http://atlas-station.com\">[station_name()]</a></b></h2>"
 
 	var/list/features = list()
 
