@@ -414,7 +414,7 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_GANG)
-			if(applicant.stat == CONSCIOUS)
+			if(!applicant.stat)
 				if(applicant.mind)
 					if(!applicant.mind.special_role)
 						if(!jobban_isbanned(applicant, "gangster") && !jobban_isbanned(applicant, "Syndicate"))
