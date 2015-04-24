@@ -1,4 +1,4 @@
-atum/surgery/organ_extraction
+/datum/surgery/organ_extraction
 	name = "experimental dissection"
 	steps = list(/datum/surgery_step/incise, /datum/surgery_step/clamp_bleeders, /datum/surgery_step/retract_skin,/datum/surgery_step/incise, /datum/surgery_step/extract_organ ,/datum/surgery_step/gland_insert)
 	species = list(/mob/living/carbon/human)

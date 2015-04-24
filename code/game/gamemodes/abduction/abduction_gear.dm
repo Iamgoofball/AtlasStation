@@ -98,12 +98,12 @@
 		M.update_canmove()
 		M.adjustStaminaLoss(-75)
 		combat_cooldown = 0
-		SSobj.processing |= src
+		processing_objects |= src
 
 /obj/item/clothing/suit/armor/abductor/vest/process()
 	combat_cooldown++
 	if(combat_cooldown==initial(combat_cooldown))
-		SSobj.processing.Remove(src)
+		processing_objects.Remove(src)
 
 /obj/item/device/abductor/proc/AbductorCheck(var/user)
 	if(ishuman(user))
@@ -249,7 +249,7 @@
 	if(cooldown == initial(cooldown))
 		home.Retrieve(imp_in,1)
 		cooldown = 0
-		SSobj.processing |= src
+		processing_objects |= src
 	else
 		imp_in << "<span class='warning'>The emergency beam is still recharging!</span>"
 	return
@@ -258,24 +258,10 @@
 	if(cooldown < initial(cooldown))
 		cooldown++
 		if(cooldown == initial(cooldown))
-			SSobj.processing.Remove(src)
-
-
-/obj/item/device/firing_pin/alien
-	name = "alien-looking pin"
-	desc = "Only non-humans can use this pin"
-	fail_message = "<span class='alienwarning'>Human DNA detected! Authorization revoked!</span>"
-
-/obj/item/device/firing_pin/alien/pin_auth(mob/living/user)
-	if(ishuman(user))
-		var/mob/living/carbon/human/H = user
-		if(H.dna.species.id == "human") //stealth lizard buff go
-			return 0
-	return 1
+			processing_objects.Remove(src)
 
 /obj/item/weapon/gun/energy/decloner/alien
 	ammo_type = list(/obj/item/ammo_casing/energy/declone)
-	pin = /obj/item/device/firing_pin/alien
 
 /obj/item/weapon/paper/abductor
 	name = "Dissection Guide"

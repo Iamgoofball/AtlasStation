@@ -175,6 +175,7 @@
 		abductor.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
+
 /datum/game_mode/abduction/proc/greet_scientist(var/datum/mind/abductor,var/team_number)
 	abductor.objectives += team_objectives[team_number]
 	var/team_name = team_names[team_number]
@@ -186,6 +187,7 @@
 		abductor.current << "<B>Objective #[obj_count]</B>: [objective.explanation_text]"
 		obj_count++
 	return
+
 /datum/game_mode/abduction/proc/equip_common(var/mob/living/carbon/human/agent,var/team_number)
 	var/radio_freq = SYND_FREQ
 	var/obj/item/device/radio/R = new /obj/item/device/radio/headset/syndicate/alt(agent)
@@ -194,6 +196,7 @@
 	agent.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(agent), slot_shoes)
 	agent.equip_to_slot_or_del(new /obj/item/clothing/under/color/grey(agent), slot_w_uniform) //they're greys gettit
 	agent.equip_to_slot_or_del(new /obj/item/weapon/storage/backpack(agent), slot_back)
+
 /datum/game_mode/abduction/proc/get_team_console(var/team)
 	var/obj/machinery/abductor/console/console
 	for(var/obj/machinery/abductor/console/c in machines)
@@ -201,6 +204,7 @@
 			console = c
 			break
 	return console
+
 /datum/game_mode/abduction/proc/equip_agent(var/mob/living/carbon/human/agent,var/team_number)
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
 	var/obj/item/clothing/suit/armor/abductor/vest/V = new /obj/item/clothing/suit/armor/abductor/vest(agent)
@@ -211,7 +215,8 @@
 	agent.equip_to_slot_or_del(new /obj/item/weapon/melee/baton/loaded(agent), slot_in_backpack)
 	agent.equip_to_slot_or_del(new /obj/item/weapon/gun/energy/decloner/alien(agent), slot_belt)
 	agent.equip_to_slot_or_del(new /obj/item/device/abductor/silencer(agent), slot_in_backpack)
-	agent.equip_to_slot_or_del(new /obj/item/weapon/restraints/handcuffs(agent), slot_in_backpack)
+	agent.equip_to_slot_or_del(new /obj/item/weapon/handcuffs(agent), slot_in_backpack)
+
 /datum/game_mode/abduction/proc/equip_scientist(var/mob/living/carbon/human/scientist,var/team_number)
 	var/obj/machinery/abductor/console/console = get_team_console(team_number)
 	var/obj/item/device/abductor/gizmo/G = new /obj/item/device/abductor/gizmo(scientist)
@@ -224,6 +229,7 @@
 	beamplant.implanted = 1
 	beamplant.implanted(scientist)
 	beamplant.home = console.pad
+
 /datum/game_mode/abduction/check_finished()
 	var/all_dead = 1
 	for(var/team_number=1,team_number<=teams,team_number++)
@@ -239,6 +245,7 @@
 	if(all_dead)
 		return 1
 	return ..()
+
 /datum/game_mode/abduction/declare_completion()
 	for(var/team_number=1,team_number<=teams,team_number++)
 		var/obj/machinery/abductor/console/console = get_team_console(team_number)
@@ -256,16 +263,19 @@
 			world << "<b>Team Members : [agent.name]([agent.ckey]),[scientist.name]([scientist.ckey])</b>"
 	..()
 	return 1
+
 /datum/game_mode/proc/auto_declare_completion_abduction()
 	if(abductors.len)
 		world << "Abductors:"
 		for(var/datum/mind/M in abductors)
 			world << "<font size = 2><b>Abductor [M.current ? M.current.name : "Abductor"]([M.key])</b></font>"
 	return
+
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships
 /obj/effect/landmark/abductor
 	var/team = 1
+
 /obj/effect/landmark/abductor/console/New()
 	var/obj/machinery/abductor/console/c = new /obj/machinery/abductor/console(src.loc)
 	var/pad_loc = get_step(c,EAST)
@@ -277,38 +287,50 @@
 	c.experiment = e
 	e.console = c
 	qdel(src)
+
 /obj/effect/landmark/abductor/agent
+
 /obj/effect/landmark/abductor/scientist
+
 // OBJECTIVES
 datum/objective/experiment
 	dangerrating = 10
 	target_amount = 6
 	var/team
+
 datum/objective/experiment/New()
 	explanation_text = "Experiment on [target_amount] humans"
+
 datum/objective/experiment/check_completion()
 	return 0
+
 datum/objective/abductee
 	dangerrating = 5
 	completed = 1
+
 datum/objective/abductee/steal
 	explanation_text = "Steal all"
+
 datum/objective/abductee/steal/New()
 	var/target = pick(list("Pets","Lights","Monkeys","Fruits","Shoes","Soap Bars"))
 	explanation_text+=" [target]"
+
 datum/objective/abductee/capture
 	explanation_text = "Capture"
+
 datum/objective/abductee/capture/New()
-		var/list/jobs = SSjob.occupations
-		for(var/datum/job/J in jobs)
-			if(J.current_positions < 1)
-				jobs -= J
+	var/list/jobs = get_all_jobs()
+	for(var/datum/job/J in jobs)
+		if(J.current_positions < 1)
+			jobs -= J
 	if(jobs.len > 0)
 		var/datum/job/target = pick(jobs)
 		explanation_text += " \a [target.title]."
 	else
 		explanation_text += " someone."
+
 datum/objective/abductee/shuttle
 	explanation_text = "You must escape the station! Get the shuttle called!"
+
 datum/objective/abductee/noclone
 	explanation_text = "Don't allow anyone to be cloned."

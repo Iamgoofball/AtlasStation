@@ -19,7 +19,7 @@
 
 /obj/item/gland/proc/Start()
 	active = 1
-	SSobj.processing |= src
+	processing_objects |= src
 
 /obj/item/gland/proc/Inject(var/mob/living/carbon/human/target)
 	host = target
@@ -28,7 +28,7 @@
 
 /obj/item/gland/process()
 	if(!active)
-		SSobj.processing.Remove(src)
+		processing_objects.Remove(src)
 		return
 	cooldown++
 	if(cooldown >= cooldown_current)
@@ -75,9 +75,9 @@ obj/item/gland/slime/activate()
 	pos.add_vomit_floor(host)
 	playsound(pos, 'sound/effects/splat.ogg', 50, 1)
 
-	var/mob/living/simple_animal/slime/Slime = new/mob/living/simple_animal/slime(pos)
-	Slime.Friends = list(host)
-	Slime.Leader = host
+	//var/mob/living/simple_animal/slime/Slime = new/mob/living/simple_animal/slime(pos)
+	//Slime.Friends = list(host)
+	//Slime.Leader = host
 
 /obj/item/gland/mindshock
 	cooldown_low = 30
