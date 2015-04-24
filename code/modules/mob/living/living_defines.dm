@@ -45,4 +45,3 @@
 	var/metabolism_efficiency = 1 //more or less efficiency to metabolize helpful/harmful reagents and regulate body temperature..
 	var/spam_flag = 0 //Spamflag for emotes.
 	var/can_radio = 1 //Radio flag for disabling radio speech
-	var/nearcrit = 0 //for newcrit

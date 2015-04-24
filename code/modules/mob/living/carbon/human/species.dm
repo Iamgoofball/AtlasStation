@@ -817,6 +817,9 @@
 			mspeed += 2 //Space suit slowdown
 			slowed = 1
 
+	if(H.nearcrit) //This is for crawling
+		mspeed += 30 //Can crawl only every 3 seconds pretty much
+
 	mspeed += speedmod
 
 	return mspeed
