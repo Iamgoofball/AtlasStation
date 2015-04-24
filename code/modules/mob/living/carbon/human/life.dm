@@ -109,14 +109,14 @@
 	for(var/obj/item/weapon/grab/G in src)
 		G.process()
 
-	// if(screamcounting >= 500)
-	// 	if(screamcount >=4)
-	// 		return
-	// 	else
-	// 		screamcounting = 0
-	// 		screamcount += 1
-	// else
-	// 	screamcounting += 1
+	if(screamcounting >= 500)
+		if(screamcount >=4)
+			return
+		else
+			screamcounting = 0
+			screamcount += 1
+	else
+		screamcounting += 1
 
 /mob/living/carbon/human/calculate_affecting_pressure(var/pressure)
 	..()
