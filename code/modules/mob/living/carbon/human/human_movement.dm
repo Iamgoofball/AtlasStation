@@ -40,12 +40,19 @@
 				var/obj/item/clothing/shoes/S = shoes
 
 				S.step_action(src)
-	if(nearcrit) //You can only crawl in nearcrit
-		adjustOxyLoss(2)
-		// if(dir == WEST)
-		// 	lying = 90
-		// else if(dir == EAST)
-		// 	lying = 270
+	// This is honestly dumb. It makes CORPSES scream.
+	// if(lying)
+	// 	if(istype(loc, /turf/space))
+	// 		if(screamcount <= 0)
+	// 			return 0
+	// 		else
+	// 			var/sound = pick('sound/misc/scream_m1.ogg', 'sound/misc/scream_m2.ogg')
+	// 			if(gender == FEMALE)
+	// 				sound = pick('sound/misc/scream_f1.ogg', 'sound/misc/scream_f2.ogg')
+	// 			playsound(src.loc, sound, 50, 1, 5)
+	// 			screamcount--
 
-		visible_message("<span class='danger'>[src] crawls forward!</span>", \
-						"<span class='userdanger'>You crawl forward.</span>")
+
+/mob/living/carbon/human/
+	var/screamcount = 2
+	var/screamcounting = 0
