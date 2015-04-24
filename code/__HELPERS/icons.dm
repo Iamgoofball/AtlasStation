@@ -689,7 +689,9 @@ The _flatIcons list is a cache for generated icon files.
 	while(TRUE)
 		if(curIndex<=process.len)
 			current = process[curIndex]
-			if(!current)	continue
+			if(!current)	
+				curIndex++ //Try the next layer
+				continue
 			currentLayer = current:layer
 			if(currentLayer<0) // Special case for FLY_LAYER
 				if(currentLayer <= -1000) return flat
