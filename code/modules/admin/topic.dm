@@ -14,37 +14,37 @@ var/global/list/achievements = list("Goodcurity")
 				message_admins("[key_name_admin(usr)] created traitors.")
 				log_admin("[key_name(usr)] created traitors.")
 				if(!src.makeTraitors())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("2")
 				message_admins("[key_name(usr)] created changelings.")
 				log_admin("[key_name(usr)] created changelings.")
 				if(!src.makeChanglings())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("3")
 				message_admins("[key_name(usr)] started a revolution.")
 				log_admin("[key_name(usr)] started a revolution.")
 				if(!src.makeRevs())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("4")
 				message_admins("[key_name(usr)] created cultists.")
 				log_admin("[key_name(usr)] created cultists.")
 				if(!src.makeCult())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("5")
 				message_admins("[key_name(usr)] caused an AI to malfunction.")
 				log_admin("[key_name(usr)] caused an AI to malfunction.")
 				if(!src.makeMalfAImode())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("6")
 				message_admins("[key_name(usr)] created a wizard.")
 				log_admin("[key_name(usr)] created a wizard.")
 				if(!src.makeWizard())
-					usr << "<span class='danger'>Unfortunatly there were no candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were no candidates available.</span>"
 			if("7")
 				message_admins("[key_name(usr)] created a nuke team.")
 				log_admin("[key_name(usr)] created a nuke team.")
 				if(!src.makeNukeTeam())
-					usr << "<span class='danger'>Unfortunatly there were not enough candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
 			if("8")
 				message_admins("[key_name(usr)] spawned a ninja.")
 				log_admin("[key_name(usr)] spawned a ninja.")
@@ -57,7 +57,7 @@ var/global/list/achievements = list("Goodcurity")
 				message_admins("[key_name(usr)] created a death squad.")
 				log_admin("[key_name(usr)] created a death squad.")
 				if(!src.makeDeathsquad())
-					usr << "<span class='danger'>Unfortunatly there were not enough candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
 			if("11")
 				var/strength = input("Set Blob Strength (1=Weak, 2=Strong, 3=Full)","Set Strength",1) as num
 				message_admins("[key_name(usr)] spawned a blob with strength [strength].")
@@ -67,7 +67,15 @@ var/global/list/achievements = list("Goodcurity")
 				message_admins("[key_name(usr)] started a gang war.")
 				log_admin("[key_name(usr)] started a gang war.")
 				if(!src.makeGangsters())
-					usr << "<span class='danger'>Unfortunatly there were not enough candidates available.</span>"
+					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
+			if("13")
+				message_admins("[key_name(usr)] is creating a revenant...")
+				if(src.makeRevenant())
+					message_admins("[key_name(usr)] created a revenant.")
+					log_admin("[key_name(usr)] created a revenant.")
+//				else
+//					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
+//					log_admin("[key_name(usr)] failed to create a revenant.")
 
 
 	else if(href_list["forceevent"])
