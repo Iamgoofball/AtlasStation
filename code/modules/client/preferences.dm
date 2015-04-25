@@ -105,9 +105,10 @@ datum/preferences
 			return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
-	var/list/datum/species/specialsnowflake = specialsnowflakes
-	specialsnowflake += /datum/species/human
-	specialsnowflake += /datum/species/lizard
+	var/list/datum/species/specialsnowflake = rewardlistbase
+	//var/list/datum/species/specialsnowflake = specialsnowflakes
+	//specialsnowflake += /datum/species/human
+	//specialsnowflake += /datum/species/lizard
 	real_name = random_name(gender)
 	if(!loaded_preferences_successfully)
 		save_preferences()
@@ -692,9 +693,9 @@ datum/preferences
 						//	var/datum/species/S = new spath()
 						//	specialsnowflake[S] = S.type
 
-						var/result = input(user, "Select a species", "Species Selection") as null|anything in specialsnowflakes
+						var/result = input(user, "Select a species", "Species Selection") as null|anything in rewardlistbase
 						if(result)
-							var/newtype = specialsnowflakes[result]
+							var/newtype = rewardlistbase[result]
 							pref_species = new newtype()
 							if(!config.mutant_colors || mutant_color == "#000")
 								mutant_color = pref_species.default_color
