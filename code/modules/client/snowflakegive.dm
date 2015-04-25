@@ -49,6 +49,8 @@
 		X.Add(/datum/species/bot)
 		X.Add(/datum/species/lizard)
 		X.Add(/datum/species/cat)
+		X.Add(/datum/species/jelly)
+		X.Add(/datum/species/skeleton/alt)
 		for(var/spath in X)
 			if(spath == /datum/species)
 				continue

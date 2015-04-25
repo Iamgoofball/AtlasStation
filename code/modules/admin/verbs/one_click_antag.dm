@@ -21,7 +21,8 @@ client/proc/one_click_antag()
 		<a href='?src=\ref[src];makeAntag=6'>Make Wizard (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=7'>Make Nuke Team (Requires Ghosts)</a><br>
 		<a href='?src=\ref[src];makeAntag=10'>Make Deathsquad (Requires Ghosts)</a><br>
-		<a href='?src=\ref[src];makeAntag=13'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=14'>Make Abductor Team (Requires Ghosts)</a><br>
+		<a href='?src=\ref[src];makeAntag=13'>Make Revenant (Requires Ghost)</a><br>
 		"}
 /* These dont work just yet
 	Ninja, aliens and deathsquad I have not looked into yet
@@ -317,6 +318,10 @@ client/proc/one_click_antag()
 	new /datum/round_event/ninja()
 	return 1
 
+/datum/admins/proc/makeRevenant() //I am a lazy cuck...
+	new /datum/round_event/revenant()
+	return 1
+
 // DEATH SQUADS
 /datum/admins/proc/makeDeathsquad()
 	var/list/mob/dead/observer/candidates = list()
@@ -465,7 +470,7 @@ client/proc/one_click_antag()
 
 	for(var/mob/living/carbon/human/applicant in player_list)
 		if(applicant.client.prefs.be_special & BE_GANG)
-			if(applicant.stat == CONSCIOUS)
+			if(!applicant.stat)
 				if(applicant.mind)
 					if(!applicant.mind.special_role)
 						if(!jobban_isbanned(applicant, "gangster") && !jobban_isbanned(applicant, "Syndicate"))
@@ -483,6 +488,21 @@ client/proc/one_click_antag()
 
 	return 0
 
+/* lazy..
+/datum/admins/proc/makeRevenant()
+	var/list/mob/dead/observer/candidates = getCandidates("Do you wish to be considered for becoming a revenant?", "revenant", null)
+	if(candidates.len >= 1)
+		var/spook_op = pick(candidates)
+		var/mob/dead/observer/O = spook_op
+		candidates -= spook_op
+		var/mob/living/simple_animal/revenant/revvie = new /mob/living/simple_animal/revenant(get_turf(O))
+		revvie.key = O.key
+		revvie.mind.assigned_role = "revenant"
+		revvie.mind.special_role = "Revenant"
+		return 1
+	else
+		return
+*/
 
 /datum/admins/proc/makeBody(var/mob/dead/observer/G_found) // Uses stripped down and bastardized code from respawn character
 	if(!G_found || !G_found.key)	return

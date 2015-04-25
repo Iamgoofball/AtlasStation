@@ -55,7 +55,7 @@
 	default_color = "00FF00"
 	roundstart = 0
 	specflags = list(MUTCOLORS,EYECOLOR,LIPS)
-	attack_verb = "claws"
+	attack_verb = "claw"
 	attack_sound = 'sound/effects/claw.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/lizard
@@ -307,6 +307,16 @@
 	sexes = 0
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/skeleton
 	specflags = list(NOBREATH,HEATRES,COLDRES,NOBLOOD,RADIMMUNE)
+	blood_color = "#808080"
+
+/datum/species/skeleton/alt
+	//2spooky
+	name = "Spooky Scary Skeleton"
+	id = "skeleton"
+	say_mod = "rattles"
+	sexes = 0
+	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/skeleton
+	specflags = list(NOBLOOD)
 	blood_color = "#808080"
 /*
  ZOMBIES
