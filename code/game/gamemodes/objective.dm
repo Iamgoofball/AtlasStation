@@ -162,10 +162,7 @@ datum/objective/debrain/check_completion()
 
 	for(var/obj/I in all_items) //Check for items
 		if(istype(I, target.current))
-			if(targetinfo && targetinfo.check_special_completion(I))//Returns 1 by default. Items with special checks will return 1 if the conditions are fulfilled.
-				return 1
-			else //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
-				return 1
+			return 1
 	return 0
 
 datum/objective/debrain/update_explanation_text()
