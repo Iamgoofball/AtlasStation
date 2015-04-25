@@ -40,12 +40,3 @@
 				var/obj/item/clothing/shoes/S = shoes
 
 				S.step_action(src)
-	if(nearcrit) //You can only crawl in nearcrit
-		adjustOxyLoss(2)
-		// if(dir == WEST)
-		// 	lying = 90
-		// else if(dir == EAST)
-		// 	lying = 270
-
-		visible_message("<span class='danger'>[src] crawls forward!</span>", \
-						"<span class='userdanger'>You crawl forward.</span>")

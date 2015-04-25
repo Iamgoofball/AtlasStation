@@ -156,6 +156,18 @@
 				move_delay += config.walk_speed
 		move_delay += mob.movement_delay()
 
+		if(mob.nearcrit) //You can only crawl in nearcrit
+			mob.adjustOxyLoss(1)
+			if(dir == WEST)
+				lying = 90
+				update_canmove()
+			else if(dir == EAST)
+				lying = 270
+				update_canmove()
+			playsound(usr.loc, pick('sound/effects/bodyscrape-01.ogg', 'sound/effects/bodyscrape-02.ogg'), 25, 1, -3)
+			mob.visible_message("<span class='danger'>[mob] crawls forward!</span>", \
+								"<span class='userdanger'>You crawl forward at the expense of some of your strength.</span>")
+
 		if(config.Tickcomp)
 			move_delay -= 1.3
 			var/tickcomp = (1 / (world.tick_lag)) * 1.3
