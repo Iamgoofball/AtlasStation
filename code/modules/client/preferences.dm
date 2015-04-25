@@ -681,19 +681,20 @@ datum/preferences
 							eye_color = sanitize_hexcolor(new_eyes)
 
 					if("species")
-						var/list/datum/species/X = list()
-						for(var/Y in specialsnowflakes)
-							X.Add(Y)
-						var/list/datum/species/specialsnowflake = list()
-						for(var/spath in X)
-							if(spath == /datum/species)
-								continue
-							var/datum/species/S = new spath()
-							specialsnowflake[S] = S.type
+						//var/list/datum/species/X = list()
+						//for(var/Y in specialsnowflakes)
+						//	X.Add(Y)
+						//	
+						//var/list/datum/species/specialsnowflake = list()
+						//for(var/spath in X)
+						//	if(spath == /datum/species)
+						//		continue
+						//	var/datum/species/S = new spath()
+						//	specialsnowflake[S] = S.type
 
-						var/result = input(user, "Select a species", "Species Selection") as null|anything in specialsnowflake
+						var/result = input(user, "Select a species", "Species Selection") as null|anything in specialsnowflakes
 						if(result)
-							var/newtype = specialsnowflake[result]
+							var/newtype = specialsnowflakes[result]
 							pref_species = new newtype()
 							if(!config.mutant_colors || mutant_color == "#000")
 								mutant_color = pref_species.default_color
