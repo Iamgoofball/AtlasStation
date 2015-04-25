@@ -67,16 +67,20 @@ var/global/list/achievements = list("Goodcurity")
 				message_admins("[key_name(usr)] started a gang war.")
 				log_admin("[key_name(usr)] started a gang war.")
 				if(!src.makeGangsters())
-					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
+					usr << "<span class='danger'>Unfortunatly there were not enough candidates available.</span>"
 			if("13")
 				message_admins("[key_name(usr)] is creating a revenant...")
 				if(src.makeRevenant())
 					message_admins("[key_name(usr)] created a revenant.")
 					log_admin("[key_name(usr)] created a revenant.")
+			if("14")
+				message_admins("[key_name(usr)] created abductor team.")
+				log_admin("[key_name(usr)] created abductor team.")
+				if(!src.makeAbductorTeam())
+					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
 //				else
 //					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
 //					log_admin("[key_name(usr)] failed to create a revenant.")
-
 
 	else if(href_list["forceevent"])
 		var/datum/round_event_control/E = locate(href_list["forceevent"]) in events.control
