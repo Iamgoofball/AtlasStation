@@ -81,6 +81,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "movable_screen_objects.dm"
 #include "_maps\tgstation2.dm"
 #include "_maps\map_files\generic\z2.dmm"
 #include "_maps\map_files\generic\z3.dmm"
@@ -152,6 +153,7 @@
 #include "code\_onclick\overmind.dm"
 #include "code\_onclick\telekinesis.dm"
 #include "code\_onclick\hud\_defines.dm"
+#include "code\_onclick\hud\action.dm"
 #include "code\_onclick\hud\ai.dm"
 #include "code\_onclick\hud\alien.dm"
 #include "code\_onclick\hud\alien_larva.dm"
