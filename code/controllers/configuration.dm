@@ -65,7 +65,7 @@
 	var/githuburl = "https://www.github.com/tgstation/-tg-station" //default github
 
 	var/forbid_singulo_possession = 0
-	
+
 	var/use_irc_bot = 0
 	var/irc_bot_host = "localhost"
 	var/irc_bot_port = 45678
@@ -73,7 +73,7 @@
 	var/python_path = "" //Path to the python executable.  Defaults to "python" on windows and "/usr/bin/env python2" on unix
 	var/nudge_script_path = "nudge.py"  // where the nudge.py script is located
 	var/comms_password = ""
-	
+
 	var/admin_legacy_system = 0	//Defines whether the server uses the legacy admin system with admins.txt or the SQL system. Config option in config.txt
 	var/ban_legacy_system = 0	//Defines whether the server uses the legacy banning system with the files in /data or the SQL system. Config option in config.txt
 	var/use_age_restriction_for_jobs = 0 //Do jobs use account age restrictions? --requires database
@@ -93,6 +93,7 @@
 	var/traitor_scaling_coeff = 6		//how much does the amount of players get divided by to determine traitors
 	var/changeling_scaling_coeff = 6	//how much does the amount of players get divided by to determine changelings
 	var/security_scaling_coeff = 8		//how much does the amount of players get divided by to determine open security officer positions
+	var/abductor_scaling_coeff = 15 	//how many players per abductor team
 
 	var/traitor_objectives_amount = 2
 	var/wizard_objectives_amount = 3
@@ -303,7 +304,7 @@
 					global.comms_password = value
 					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
 						global.comms_password = 1
-				
+
 				if("irc_bot_host")
 					config.irc_bot_host = value
 				if("irc_bot_port")
@@ -392,6 +393,8 @@
 					config.changeling_scaling_coeff	= text2num(value)
 				if("security_scaling_coeff")
 					config.security_scaling_coeff	= text2num(value)
+				if("abductor_scaling_coeff")
+					config.abductor_scaling_coeff	= text2num(value)
 				if("traitor_objectives_amount")
 					config.traitor_objectives_amount = text2num(value)
 				if("wizard_objectives_amount")
