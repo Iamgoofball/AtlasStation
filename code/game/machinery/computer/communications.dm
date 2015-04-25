@@ -555,7 +555,7 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 	return dat
 
 /obj/machinery/computer/communications/proc/make_announcement(var/mob/living/user, var/is_silicon)
-	if(!input || !user.canUseTopic(src))
+	if(!user.canUseTopic(src))
 		return
 	if(is_silicon)
 		ai_message_cooldown = 1
@@ -567,6 +567,9 @@ var/const/CALL_SHUTTLE_REASON_LENGTH = 12
 			message_cooldown = 0
 
 	var/input = stripped_input(user, "Please choose a message to announce to the station crew.", "What?")
+
+	if(!input)
+		return
 
 	if(is_silicon)
 		minor_announce(input)
