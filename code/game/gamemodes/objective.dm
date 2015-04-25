@@ -149,15 +149,23 @@ datum/objective/debrain/find_target_by_role(role, role_type=0)
 datum/objective/debrain/check_completion()
 	if(!target)//If it's a free objective.
 		return 1
-	if( !owner.current || owner.current.stat==DEAD )//If you're otherwise dead.
+	if(!isbrain(target.current) || !target.current)
 		return 0
-	if( !target.current || !isbrain(target.current) )
-		return 0
-	var/atom/A = target.current
-	while(A.loc)			//check to see if the brainmob is on our person
-		A = A.loc
-		if(A == owner.current)
-			return 1
+	if(!isliving(owner.current))	return 0
+	//This code wasn't even updated to check for all inventory space, meaning brains in boxes didn't count. Great job.
+	// var/atom/A = target.current
+	// while(A.loc)			//check to see if the brainmob is on our person
+	// 	A = A.loc
+	// 	if(A == owner.current)
+	// 		return 1
+	var/list/all_items = owner.current.GetAllContents()	//this should get things in cheesewheels, books, etc.
+
+	for(var/obj/I in all_items) //Check for items
+		if(istype(I, target.current))
+			if(targetinfo && targetinfo.check_special_completion(I))//Returns 1 by default. Items with special checks will return 1 if the conditions are fulfilled.
+				return 1
+			else //If there's no targetinfo, then that means it was a custom objective. At this point, we know you have the item, so return 1.
+				return 1
 	return 0
 
 datum/objective/debrain/update_explanation_text()
