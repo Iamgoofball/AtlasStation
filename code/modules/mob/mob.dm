@@ -800,6 +800,8 @@ var/list/slot_equipment_priority = list( \
 		if((ko || resting) && !lying)
 			fall(ko)
 	canmove = !(ko || resting || stunned || buckled || pinned_to)
+	if(nearcrit && !stat)
+		canmove = !(stunned || buckled || pinned_to)
 	density = !lying
 	update_transform()
 	lying_prev = lying
