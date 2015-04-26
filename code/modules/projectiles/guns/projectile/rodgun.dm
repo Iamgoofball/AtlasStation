@@ -8,24 +8,6 @@
 /turf
 	var/pinned = null //Used to track the turf's destruction so as to release the poor pinned dude
 
-/turf/Del()
-	if(src.pinned)
-		var/mob/living/carbon/human/H = src.pinned
-		H.anchored = 0
-		H.pinned_to = null
-		H.do_pindown(src, 0)
-		H.update_canmove()
-	..()
-
-/turf/ChangeTurf(var/path)
-	if(src.pinned)
-		var/mob/living/carbon/human/H = src.pinned
-		H.anchored = 0
-		H.pinned_to = null
-		H.do_pindown(src, 0)
-		H.update_canmove()
-	..()
-
 //Rod stuff
 /obj/item/projectile/rod
 	name = "metal rod"
