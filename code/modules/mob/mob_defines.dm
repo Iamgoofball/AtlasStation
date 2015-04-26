@@ -166,3 +166,5 @@
 
 	var/turf/listed_turf = null	//the current turf being examined in the stat panel
 	var/canTableClimb = 0 //Can this mob climb tables? Drag+drop yourself on a table to climb.
+
+	var/nearcrit = 0 //for newcrit

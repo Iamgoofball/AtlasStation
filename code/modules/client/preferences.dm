@@ -106,7 +106,7 @@ datum/preferences
 			return
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
-	var/list/datum/species/specialsnowflake = specialsnowflakes
+	//var/list/datum/species/specialsnowflake = specialsnowflakes
 	//var/list/datum/species/specialsnowflake = specialsnowflakes
 	//specialsnowflake += /datum/species/human
 	//specialsnowflake += /datum/species/lizard
