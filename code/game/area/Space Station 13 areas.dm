@@ -885,9 +885,13 @@ proc/process_ghost_teleport_locs()
 	name = "Engineering"
 	icon_state = "engine"
 
-/area/engine/sm_area
+/area/engine/sm_room
 	name = "Supermatter Area"
-	icon_state = "supermatter"
+	icon_state = "sm_area"
+
+/area/engine/sm_area
+	name = "Supermatter Chamber"
+	icon_state = "sm_chamber"
 
 /area/engine/break_room
 	name = "\improper Engineering Foyer"
