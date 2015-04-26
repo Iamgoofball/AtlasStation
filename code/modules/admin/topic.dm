@@ -67,16 +67,20 @@ var/global/list/achievements = list("Goodcurity")
 				message_admins("[key_name(usr)] started a gang war.")
 				log_admin("[key_name(usr)] started a gang war.")
 				if(!src.makeGangsters())
-					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
+					usr << "<span class='danger'>Unfortunatly there were not enough candidates available.</span>"
 			if("13")
 				message_admins("[key_name(usr)] is creating a revenant...")
 				if(src.makeRevenant())
 					message_admins("[key_name(usr)] created a revenant.")
 					log_admin("[key_name(usr)] created a revenant.")
+			if("14")
+				message_admins("[key_name(usr)] created abductor team.")
+				log_admin("[key_name(usr)] created abductor team.")
+				if(!src.makeAbductorTeam())
+					usr << "<span class='danger'>Unfortunately, there were not enough candidates available.</span>"
 //				else
 //					message_admins("[key_name_admin(usr)] tried to create a revenant. Unfortunately, there were no candidates available.")
 //					log_admin("[key_name(usr)] failed to create a revenant.")
-
 
 	else if(href_list["forceevent"])
 		var/datum/round_event_control/E = locate(href_list["forceevent"]) in events.control
@@ -1343,14 +1347,25 @@ var/global/list/achievements = list("Goodcurity")
 	else if(href_list["sfremove"])
 		if(!check_rights(R_ADMIN))	return
 		var/mob/M = locate(href_list["sfremove"])
-		var/datum/species/snowflake = input(usr, "Choose what snowflake you want to remove:", "Griefers")  as null|anything in M.client.prefs.specialsnowflakes
+
+		var/snowflake = input(usr, "Choose what snowflake you want to remove. Remove the last one to species lock:", "Griefers")  as null|anything in M.client.prefs.specialsnowflakes
 
 
 		if(snowflake)
-			usr << "\red You remove [M.key]'s ability to use the [snowflake.id] snowflake"
-			message_admins("[usr] removed one of [M.key]'s snowflakes: [snowflake.id]")
-			M.client.prefs.specialsnowflakes.Remove(snowflake)
 
+			var/C = 0
+			for(var/Y in M.client.prefs.specialsnowflakes)
+				C++
+			if(C <= 1)
+
+				M.client.prefs.pref_species = new snowflake()
+				usr << "\red You lock [M.client] to a species"
+				message_admins("[usr] has species locked [M.key] to: [snowflake]")
+			else
+				M.client.prefs.specialsnowflakes -= snowflake
+				usr << "\red You remove [M.key]'s ability to use the [snowflake] snowflake"
+				message_admins("[usr] removed one of [M.key]'s snowflakes: [snowflake]")
+			M.client.prefs.save_character()
 
 
 	else if(href_list["revive"])

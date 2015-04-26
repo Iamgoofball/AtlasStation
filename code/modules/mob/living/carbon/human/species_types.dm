@@ -55,7 +55,7 @@
 	default_color = "00FF00"
 	roundstart = 0
 	specflags = list(MUTCOLORS,EYECOLOR,LIPS)
-	attack_verb = "claws"
+	attack_verb = "claw"
 	attack_sound = 'sound/effects/claw.ogg'
 	miss_sound = 'sound/weapons/slashmiss.ogg'
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/lizard
@@ -308,6 +308,16 @@
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/skeleton
 	specflags = list(NOBREATH,HEATRES,COLDRES,NOBLOOD,RADIMMUNE)
 	blood_color = "#808080"
+
+/datum/species/skeleton/alt
+	//2spooky
+	name = "Spooky Scary Skeleton"
+	id = "skeleton"
+	say_mod = "rattles"
+	sexes = 0
+	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/skeleton
+	specflags = list(NOBLOOD)
+	blood_color = "#808080"
 /*
  ZOMBIES
 */
@@ -319,6 +329,32 @@
 	say_mod = "moans"
 	sexes = 0
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/zombie
+
+// Abductor
+/datum/species/abductor
+	name = "Abductor"
+	id = "abductor"
+	darksight = 3
+	say_mod = "gibbers"
+	sexes = 0
+	invis_sight = SEE_INVISIBLE_LEVEL_ONE
+	specflags = list(NOBLOOD,NOBREATH)
+	var/scientist = 0 // vars to not pollute spieces list with castes
+	var/agent = 0
+	var/team = 1
+
+/datum/species/abductor/handle_speech(message)
+	//Hacks
+	var/mob/living/carbon/human/user = usr
+	for(var/mob/living/carbon/human/H in mob_list)
+		if(H.dna.species.id != "abductor")
+			continue
+		else
+			var/datum/species/abductor/target_spec = H.dna.species
+			if(target_spec.team == team)
+				H << "<i><font color=#800080><b>[user.name]:</b> [message]</font></i>"
+				//return - technically you can add more aliens to a team
+	return ""
 
 /datum/species/zombie/handle_speech(message)
 	var/list/message_list = text2list(message, " ")

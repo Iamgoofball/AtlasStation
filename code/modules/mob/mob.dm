@@ -800,8 +800,6 @@ var/list/slot_equipment_priority = list( \
 		if((ko || resting) && !lying)
 			fall(ko)
 	canmove = !(ko || resting || stunned || buckled || pinned_to)
-	if(nearcrit && !stat)
-		canmove = !(stunned || buckled || pinned_to)
 	density = !lying
 	update_transform()
 	lying_prev = lying
@@ -820,6 +818,7 @@ var/list/slot_equipment_priority = list( \
 	dir = EAST
 	client.move_delay += movement_delay()
 	return 1
+
 
 /mob/verb/westface()
 	set hidden = 1
@@ -949,6 +948,20 @@ var/list/slot_equipment_priority = list( \
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return
+
+/mob/proc/AddSpell(var/obj/effect/proc_holder/spell/spell)
+	mob_spell_list += spell
+	if(!spell.action)
+		spell.action = new/datum/action/spell_action
+		spell.action.target = spell
+		spell.action.name = spell.name
+		spell.action.button_icon = spell.action_icon
+		spell.action.button_icon_state = spell.action_icon_state
+		spell.action.background_icon_state = spell.action_background_icon_state
+	if(isliving(src))
+		spell.action.Grant(src)
+ 	return
+
 
 /mob/proc/get_ghost(even_if_they_cant_reenter = 0)
 	if(mind)

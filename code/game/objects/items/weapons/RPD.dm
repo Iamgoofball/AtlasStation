@@ -467,7 +467,7 @@ var/global/list/RPD_recipes=list(
 			P.color = paint_color
 			P.pipe_color = paint_color
 			P.stored.color = paint_color
-			
+
 			user.visible_message("<span class='notice'>[user] paints \the [P] [paint_color].</span>","<span class='notice'>You paint \the [P] [paint_color].</span>")
 			P.redraw()
 			return 1
@@ -554,4 +554,3 @@ var/global/list/RPD_recipes=list(
 
 /obj/item/weapon/pipe_dispenser/proc/activate()
 	playsound(get_turf(src), 'sound/items/Deconstruct.ogg', 50, 1)
-

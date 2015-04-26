@@ -19,7 +19,8 @@ var/global/list/special_roles = list( //keep synced with the defines BE_* in set
 	"ninja",										//10
 	"monkey" = /datum/game_mode/monkey,				//11
 	"gangster" = /datum/game_mode/gang,				//12
-	"shadowling" = /datum/game_mode/shadowling		//13
+	"shadowling" = /datum/game_mode/shadowling,		//13
+	"abductor" = /datum/game_mode/abduction			//14
 )
 
 
@@ -106,8 +107,9 @@ datum/preferences
 	//we couldn't load character data so just randomize the character appearance + name
 	random_character()		//let's create a random character then - rather than a fat, bald and naked man.
 	var/list/datum/species/specialsnowflake = specialsnowflakes
-	specialsnowflake += /datum/species/human
-	specialsnowflake += /datum/species/lizard
+	//var/list/datum/species/specialsnowflake = specialsnowflakes
+	//specialsnowflake += /datum/species/human
+	//specialsnowflake += /datum/species/lizard
 	real_name = random_name(gender)
 	if(!loaded_preferences_successfully)
 		save_preferences()
@@ -682,8 +684,9 @@ datum/preferences
 
 					if("species")
 						var/list/datum/species/X = list()
-						for(var/Y in specialsnowflakes)
+						for(var/Y in rewardlistbase)
 							X.Add(Y)
+							
 						var/list/datum/species/specialsnowflake = list()
 						for(var/spath in X)
 							if(spath == /datum/species)

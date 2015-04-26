@@ -158,6 +158,9 @@ var/list/admin_ranks = list()								//list of all admin_rank datums
 		while(query.NextRow())
 			var/ckey = ckey(query.item[1])
 			var/rank = ckeyEx(query.item[2])
+
+			if(rank == "Removed")	continue	//This person was de-adminned. They are only in the admin list for archive purposes.
+
 			if(rank_names[rank] == null)
 				error("Admin rank ([rank]) does not exist.")
 				continue

@@ -81,6 +81,7 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
+#include "movable_screen_objects.dm"
 #include "_maps\tgstation2.dm"
 #include "_maps\map_files\generic\z2.dmm"
 #include "_maps\map_files\generic\z3.dmm"
@@ -152,6 +153,7 @@
 #include "code\_onclick\overmind.dm"
 #include "code\_onclick\telekinesis.dm"
 #include "code\_onclick\hud\_defines.dm"
+#include "code\_onclick\hud\action.dm"
 #include "code\_onclick\hud\ai.dm"
 #include "code\_onclick\hud\alien.dm"
 #include "code\_onclick\hud\alien_larva.dm"
@@ -294,6 +296,7 @@
 #include "code\datums\helper_datums\events.dm"
 #include "code\datums\helper_datums\getrev.dm"
 #include "code\datums\helper_datums\global_iterator.dm"
+#include "code\datums\helper_datums\icon_snapshot.dm"
 #include "code\datums\helper_datums\teleport.dm"
 #include "code\datums\helper_datums\topic_input.dm"
 #include "code\datums\spells\area_teleport.dm"
@@ -359,6 +362,11 @@
 #include "code\game\gamemodes\objective.dm"
 #include "code\game\gamemodes\objective_items.dm"
 #include "code\game\gamemodes\setupgame.dm"
+#include "code\game\gamemodes\abduction\abduction.dm"
+#include "code\game\gamemodes\abduction\abduction_gear.dm"
+#include "code\game\gamemodes\abduction\abduction_machinery.dm"
+#include "code\game\gamemodes\abduction\abduction_surgery.dm"
+#include "code\game\gamemodes\abduction\gland.dm"
 #include "code\game\gamemodes\blob\blob.dm"
 #include "code\game\gamemodes\blob\blob_finish.dm"
 #include "code\game\gamemodes\blob\blob_report.dm"
@@ -1165,6 +1173,7 @@
 #include "code\modules\mob\living\login.dm"
 #include "code\modules\mob\living\logout.dm"
 #include "code\modules\mob\living\say.dm"
+#include "code\modules\mob\living\ventcrawling.dm"
 #include "code\modules\mob\living\carbon\carbon.dm"
 #include "code\modules\mob\living\carbon\carbon_defense.dm"
 #include "code\modules\mob\living\carbon\carbon_defines.dm"
