@@ -38,7 +38,7 @@ var/global/fartholdin = 0
 
 /datum/controller/gameticker/proc/pregame()
 
-	login_music = pickweight(list('sound/ambience/title3.ogg' = 33, 'sound/ambience/title2.ogg' = 33, 'sound/ambience/title1.ogg' = 33, 'sound/ambience/clown.ogg' = 3)) // choose title music!
+	login_music = pickweight(list('sound/ambience/title1.ogg' = 100)) // choose title music!
 	if(events.holiday == "April Fool's Day")
 		login_music = 'sound/ambience/clown.ogg'
 	for(var/client/C in clients)
@@ -107,7 +107,7 @@ var/global/fartholdin = 0
 			return 0
 	else
 		world << "<span class='notice'>DEBUG: Bypassing prestart checks..."
-	
+
 	if(hide_mode)
 		var/list/modes = new
 		for (var/datum/game_mode/M in runnable_modes)
