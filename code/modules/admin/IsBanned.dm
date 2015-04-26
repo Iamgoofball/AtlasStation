@@ -113,9 +113,9 @@ world/IsBanned(key,address,computer_id)
 
 
 		if (failedcid)
-			sanitized_key = strip_html_properly(key, 40)
+			var/sanitized_key = strip_html_properly(key, 40)
 			message_admins("[sanitized_key] has logged in with a blank computer id in the ban check.")
 		if (failedip)
-			sanitized_key = strip_html_properly(key, 40)
+			var/sanitized_key = strip_html_properly(key, 40)
 			message_admins("[sanitized_key] has logged in with a blank ip in the ban check.")
 		return ..()	//default pager ban stuff
