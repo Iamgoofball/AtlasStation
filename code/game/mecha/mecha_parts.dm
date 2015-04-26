@@ -439,3 +439,7 @@
 
 /obj/item/weapon/circuitboard/mecha/phazon/main
 	name = "circuit board (Phazon Central Control module)"
+
+/obj/item/weapon/circuitboard/mecha/pod
+		name = "Circuit board (Space Pod Mainboard)"
+		icon_state = "mainboard"
