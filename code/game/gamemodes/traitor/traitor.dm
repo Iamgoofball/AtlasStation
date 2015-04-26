@@ -12,10 +12,11 @@
 	antag_flag = BE_TRAITOR
 	restricted_jobs = list("Cyborg")//They are part of the AI if he is traitor so are they, they use to get double chances
 	protected_jobs = list("Security Officer", "Warden", "Detective", "Head of Security", "Captain", "Head of Personnel")//AI", Currently out of the list as malf does not work for shit
-	required_players = 4
+	required_players = 3 //for actual decent mystery
 	required_enemies = 1
 	recommended_enemies = 4
 
+	required_uplink_players = 10 //How many players are needed to unlock the uplink for traitors
 	var/traitors_possible = 4 //hard limit on traitors if scaling is turned off
 	var/num_modifier = 0 // Used for gamemodes, that are a child of traitor, that need more than the usual.
 
@@ -292,45 +293,51 @@
 
 	// find a radio! toolbox(es), backpack, belt, headset
 	var/loc = ""
-	var/obj/item/R = locate(/obj/item/device/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
-	if(!R)
-		R = locate(/obj/item/device/radio) in traitor_mob.contents
+	world.log << "Found [joined_player_list.len] players in-game when equipping traitor [traitor_mob]."
+	if(joined_player_list.len >= required_uplink_players)
+		var/obj/item/R = locate(/obj/item/device/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
+		if(!R)
+			R = locate(/obj/item/device/radio) in traitor_mob.contents
 
-	if (!R)
-		traitor_mob << "Unfortunately, the Syndicate wasn't able to get you a radio."
-		. = 0
+		if (!R)
+			traitor_mob << "Unfortunately, the Syndicate wasn't able to get you a radio."
+			. = 0
+		else
+			if (istype(R, /obj/item/device/radio))
+				// generate list of radio freqs
+				var/obj/item/device/radio/target_radio = R
+				var/freq = 1441
+				var/list/freqlist = list()
+				while (freq <= 1489)
+					if (freq < 1451 || freq > 1459)
+						freqlist += freq
+					freq += 2
+					if ((freq % 2) == 0)
+						freq += 1
+				freq = freqlist[rand(1, freqlist.len)]
+
+				var/obj/item/device/uplink/hidden/T = new(R)
+				target_radio.hidden_uplink = T
+				T.uplink_owner = "[traitor_mob.key]"
+				target_radio.traitor_frequency = freq
+				traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
+				traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [loc]).")
+			else if (istype(R, /obj/item/device/pda))
+				// generate a passcode if the uplink is hidden in a PDA
+				var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
+
+				var/obj/item/device/uplink/hidden/T = new(R)
+				R.hidden_uplink = T
+				T.uplink_owner = "[traitor_mob.key]"
+				var/obj/item/device/pda/P = R
+				P.lock_code = pda_pass
+
+				traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."
+				traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [loc]).")
 	else
-		if (istype(R, /obj/item/device/radio))
-			// generate list of radio freqs
-			var/obj/item/device/radio/target_radio = R
-			var/freq = 1441
-			var/list/freqlist = list()
-			while (freq <= 1489)
-				if (freq < 1451 || freq > 1459)
-					freqlist += freq
-				freq += 2
-				if ((freq % 2) == 0)
-					freq += 1
-			freq = freqlist[rand(1, freqlist.len)]
+		traitor_mob << "The Syndicate is not going to supply you an uplink to save costs."
+		. = 0
 
-			var/obj/item/device/uplink/hidden/T = new(R)
-			target_radio.hidden_uplink = T
-			T.uplink_owner = "[traitor_mob.key]"
-			target_radio.traitor_frequency = freq
-			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply dial the frequency [format_frequency(freq)] to unlock its hidden features."
-			traitor_mob.mind.store_memory("<B>Radio Freq:</B> [format_frequency(freq)] ([R.name] [loc]).")
-		else if (istype(R, /obj/item/device/pda))
-			// generate a passcode if the uplink is hidden in a PDA
-			var/pda_pass = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
-
-			var/obj/item/device/uplink/hidden/T = new(R)
-			R.hidden_uplink = T
-			T.uplink_owner = "[traitor_mob.key]"
-			var/obj/item/device/pda/P = R
-			P.lock_code = pda_pass
-
-			traitor_mob << "The Syndicate have cunningly disguised a Syndicate Uplink as your [R.name] [loc]. Simply enter the code \"[pda_pass]\" into the ringtone select to unlock its hidden features."
-			traitor_mob.mind.store_memory("<B>Uplink Passcode:</B> [pda_pass] ([R.name] [loc]).")
 	if(!safety)//If they are not a rev. Can be added on to.
 		give_codewords(traitor_mob)
 
