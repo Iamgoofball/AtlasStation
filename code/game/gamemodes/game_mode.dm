@@ -25,6 +25,7 @@
 	var/list/protected_jobs = list()	// Jobs that can't be traitors because
 	var/required_players = 0
 	var/required_enemies = 0
+	var/required_uplink_players = 0 //How many players are needed to unlock the uplink for traitors
 	var/recommended_enemies = 0
 	var/pre_setup_before_jobs = 0
 	var/antag_flag = null //preferences flag such as BE_WIZARD that need to be turned on for players to be antag
