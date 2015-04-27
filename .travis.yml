@@ -24,5 +24,4 @@ script:
   - bash dm.sh -M${DM_MAPFILE} AtlasStation.dme
 
 notifications:
-  slack:
-        secure: "sZkPPlbPzxSIot9FPUhFzYXz6WO6xe93BVq7eeUtoK+Xamn2qyTHLoxkfRLCifKo+ekQB+0E1X3FhnlR5ToobmuKgq6dZpy8WooYwU6W+Z/jjmle1dgF+LAWAK7XVlP4XA41hzDTtUNEoZ8QpRgPvQcPJSkS3YXjj/QOLYjs1oE"
+  slack: atlas-station:T7kGWZy3wB48yPwXIzDGsoxF
