@@ -127,8 +127,8 @@ proc/process_ghost_teleport_locs()
 	power_light = 0
 	power_equip = 0
 	power_environ = 0
-	ambientsounds = list('sound/ambience/ambispace.ogg','sound/ambience/johncena.ogg',)
-	ambloop = 'sound/ambience/loop/hallow.ogg'
+	ambientsounds = list('sound/ambience/ambispace.ogg','sound/ambience/space_stutter.ogg',)
+	ambloop = 'sound/ambience/loop/space.ogg'
 
 
 
