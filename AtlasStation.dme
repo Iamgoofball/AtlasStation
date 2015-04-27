@@ -83,7 +83,6 @@
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
-#include "movable_screen_objects.dm"
 #include "_maps\tgstation2.dm"
 #include "_maps\map_files\generic\z2.dmm"
 #include "_maps\map_files\generic\z3.dmm"
