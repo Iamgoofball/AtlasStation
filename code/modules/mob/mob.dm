@@ -845,6 +845,9 @@ var/list/slot_equipment_priority = list( \
 	client.move_delay += movement_delay()
 	return 1
 
+/mob/verb/SpacebarAction() //Called when player pressed spacebar. Can be used for variety of things. Pods use this for firing weapons.
+	set hidden = 1
+	return
 
 /mob/proc/IsAdvancedToolUser()//This might need a rename but it should replace the can this mob use things check
 	return 0

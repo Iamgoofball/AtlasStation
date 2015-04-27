@@ -87,8 +87,8 @@
 				stat("Absorbed DNA", mind.changeling.absorbedcount)
 		if(istype(loc, /obj/spacepod))
 			var/obj/spacepod/A = loc
-			stat("Pod Energy Charge", round("[A.battery.charge]/[A.battery.max_charge]"))
-			stat("Pod Health", round("[A.health]/[A.max_health]"))
+			stat("Pod Energy Charge", "[round(A.battery.charge)]/[A.battery.maxcharge]")
+			stat("Pod Health", "[round(A.health)]/[A.max_health]")
 		if (istype(wear_suit, /obj/item/clothing/suit/space/space_ninja)&&wear_suit:s_initialized)
 			stat("Energy Charge", round(wear_suit:cell:charge/100))
 

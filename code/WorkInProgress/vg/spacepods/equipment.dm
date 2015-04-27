@@ -79,6 +79,8 @@
 	var/fire_delay = 10
 	var/verb_name = "What the fuck?"
 	var/verb_desc = "How did you get this?"
+	var/pod_overlay_icon = 'icons/48x48/pods.dmi'
+	var/pod_overlay = "pod_weapon_honk" //if you decide to install this you'll get a very peculiar-looking pod
 
 /obj/item/device/spacepod_equipment/weaponry/taser
 	name = "\improper taser system"
@@ -89,6 +91,7 @@
 	fire_sound = "sound/weapons/Taser.ogg"
 	verb_name = "Fire Taser System"
 	verb_desc = "Fire ze tasers!"
+	pod_overlay = "pod_weapon_taser"
 
 /obj/item/device/spacepod_equipment/weaponry/taser/burst
 	name = "\improper burst taser system"
@@ -98,6 +101,7 @@
 	shots_per = 3
 	verb_name = "Fire Burst Taser System"
 	verb_desc = "Fire ze tasers!"
+	pod_overlay = "pod_weapon_taser_burst"
 
 /obj/item/device/spacepod_equipment/weaponry/laser
 	name = "\improper laser system"
@@ -109,12 +113,14 @@
 	fire_delay = 25
 	verb_name = "Fire Laser System"
 	verb_desc = "Fire ze lasers!"
+	pod_overlay = "pod_weapon_laser"
 
-/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system()
-	var/obj/spacepod/S = src
-	var/obj/item/device/spacepod_equipment/weaponry/SPE = S.equipment_system.weapon_system
+/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system(var/obj/spacepod/S)
 	set category = "Spacepod"
 	//set name = SPE.verb_name
 	//set desc = SPE.verb_desc
-	set src = usr.loc
-	SPE.fire_weapons()
+	// set src = usr.loc
+	// var/obj/spacepod/S = src
+	if(istype(S))
+		var/obj/item/device/spacepod_equipment/weaponry/SPE = S.equipment_system.weapon_system
+		SPE.fire_weapons()

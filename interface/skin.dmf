@@ -397,6 +397,10 @@ macro "macro"
 		name = "F12"
 		command = "F12"
 		is-disabled = false
+	elem 
+		name = "SPACE"
+		command = "SpacebarAction"
+		is-disabled = false
 
 macro "hotkeymode"
 	elem 
@@ -642,6 +646,10 @@ macro "hotkeymode"
 	elem 
 		name = "F12"
 		command = "F12"
+		is-disabled = false
+	elem 
+		name = "SPACE"
+		command = "SpacebarAction"
 		is-disabled = false
 
 macro "borgmacro"

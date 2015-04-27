@@ -1,6 +1,14 @@
+/mob/living/carbon/SpacebarAction()
+	..()
+	if(istype(loc, /obj/spacepod))
+		var/obj/spacepod/A = loc
+		if(A.equipment_system && A.equipment_system.weapon_system)
+			A.equipment_system.weapon_system.fire_weapon_system(A)
+
 // honk
 #define DAMAGE			1
 #define FIRE			2
+#define WEAPONS			3
 
 /obj/spacepod
 	name = "\improper space pod"
@@ -35,14 +43,20 @@
 	var/max_health = 400
 	var/crit = 0 //To prevent message spam when pod's in crit health
 
+	var/damage_icon_state = "pod_damage"
+	var/fire_icon_state = "pod_fire"
+	var/weapons_icon_state = ""
+
 	var/list/datum/action/actions = list()
 
 /obj/spacepod/New()
 	. = ..()
 	if(!pod_overlays)
-		pod_overlays = new/list(2)
-		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays = new/list(3)
+		pod_overlays[DAMAGE] = image(icon, icon_state=damage_icon_state)
+		pod_overlays[FIRE] = image(icon, icon_state=fire_icon_state)
+		pod_overlays[WEAPONS] = image(icon, icon_state=weapons_icon_state)
+
 	bound_width = 64
 	bound_height = 64
 	dir = EAST
@@ -61,9 +75,17 @@
 
 /obj/spacepod/proc/update_icons()
 	if(!pod_overlays)
-		pod_overlays = new/list(2)
-		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
-		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
+		pod_overlays = new/list(3)
+		pod_overlays[DAMAGE] = image(icon, icon_state=damage_icon_state)
+		pod_overlays[FIRE] = image(icon, icon_state=fire_icon_state)
+		pod_overlays[WEAPONS] = image(icon, icon_state=weapons_icon_state)
+
+	if(equipment_system.weapon_system)
+		var/obj/item/device/spacepod_equipment/weaponry/W = equipment_system.weapon_system
+		pod_overlays[WEAPONS] = image(icon=W.pod_overlay_icon, icon_state=W.pod_overlay)
+		overlays += pod_overlays[WEAPONS]
+	else
+		overlays -= pod_overlays[WEAPONS]
 
 	if(health <= round(max_health/2))
 		overlays += pod_overlays[DAMAGE]
@@ -142,7 +164,7 @@
 		if(!hatch_open)
 			return ..()
 		if(!equipment_system)
-			user << "<span class='warning'>The pod has no equipment datum, yell at pomf</span>"
+			user << "<span class='warning'>The pod has no equipment datum, yell at the coders</span>"
 			return
 		if(istype(W, /obj/item/device/spacepod_equipment/weaponry))
 			if(equipment_system.weapon_system)
@@ -153,8 +175,9 @@
 				user.drop_item(W, equipment_system)
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
-				new/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system(src, equipment_system.weapon_system.verb_name, equipment_system.weapon_system.verb_desc) //Yes, it has to be referenced like that. W.verb_name/desc doesn't compile.	
+				new/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system(src) //Yes, it has to be referenced like that. W.verb_name/desc doesn't compile.	
 				W.forceMove(src)
+				update_icons()
 				return
 
 
@@ -206,7 +229,7 @@
 			else
 				user << "<span class='warning'>You need an open hand to do that.</span>"
 		*/
-
+	update_icons()
 	return
 
 /obj/spacepod/civilian
@@ -399,28 +422,28 @@
 		if(spacepod.internal_tank)
 			var/datum/gas_mixture/tank_air = spacepod.internal_tank.return_air()
 			var/datum/gas_mixture/cabin_air = spacepod.cabin_air
-
-			var/release_pressure = ONE_ATMOSPHERE
-			var/cabin_pressure = cabin_air.return_pressure()
-			var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
-			var/transfer_moles = 0
-			if(pressure_delta > 0) //cabin pressure lower than release pressure
-				if(tank_air.return_temperature() > 0)
-					transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-					var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
-					cabin_air.merge(removed)
-			else if(pressure_delta < 0) //cabin pressure higher than release pressure
-				var/datum/gas_mixture/t_air = spacepod.get_turf_air()
-				pressure_delta = cabin_pressure - release_pressure
-				if(t_air)
-					pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
-				if(pressure_delta > 0) //if location pressure is lower than cabin pressure
-					transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
-					var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
+			if(tank_air && cabin_air)
+				var/release_pressure = ONE_ATMOSPHERE
+				var/cabin_pressure = cabin_air.return_pressure()
+				var/pressure_delta = min(release_pressure - cabin_pressure, (tank_air.return_pressure() - cabin_pressure)/2)
+				var/transfer_moles = 0
+				if(pressure_delta > 0) //cabin pressure lower than release pressure
+					if(tank_air.return_temperature() > 0)
+						transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+						var/datum/gas_mixture/removed = tank_air.remove(transfer_moles)
+						cabin_air.merge(removed)
+				else if(pressure_delta < 0) //cabin pressure higher than release pressure
+					var/datum/gas_mixture/t_air = spacepod.get_turf_air()
+					pressure_delta = cabin_pressure - release_pressure
 					if(t_air)
-						t_air.merge(removed)
-					else //just delete the cabin gas, we're in space or some shit
-						del(removed)
+						pressure_delta = min(cabin_pressure - t_air.return_pressure(), pressure_delta)
+					if(pressure_delta > 0) //if location pressure is lower than cabin pressure
+						transfer_moles = pressure_delta*cabin_air.return_volume()/(cabin_air.return_temperature() * R_IDEAL_GAS_EQUATION)
+						var/datum/gas_mixture/removed = cabin_air.remove(transfer_moles)
+						if(t_air)
+							t_air.merge(removed)
+						else //just delete the cabin gas, we're in space or some shit
+							del(removed)
 		else
 			return stop()
 		return
