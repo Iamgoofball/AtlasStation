@@ -1,4 +1,5 @@
 // #define SOUND_CHANNEL_ADMIN 777
+var/list/sounds_cache = list()
 var/sound/admin_sound
 
 /client/proc/play_sound(S as sound)
@@ -9,6 +10,12 @@ var/sound/admin_sound
 	admin_sound = sound(S, repeat = 0, wait = 1, channel = 7)
 	admin_sound.priority = 250
 	admin_sound.status = SOUND_UPDATE|SOUND_STREAM
+
+	sounds_cache += S
+
+	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
+		return
+
 
 	log_admin("[key_name(src)] played sound [S]")
 	message_admins("[key_name_admin(src)] played sound [S]")
@@ -35,6 +42,23 @@ var/sound/admin_sound
 	message_admins("[key_name_admin(src)] played a local sound [S]")
 	playsound(get_turf(src.mob), S, 50, 0, 0)
 	feedback_add_details("admin_verb","PLS") //If you are copy-pasting this, ensure the 2nd parameter is unique to the new proc!
+
+/client/proc/play_server_sound()
+	set category = "Fun"
+	set name = "Play Server Sound"
+	if(!check_rights(R_SOUNDS))	return
+
+	var/list/sounds = file2list("sound/serversound_list.txt");
+	sounds += sounds_cache //It looks really dumb being below the cancel button
+	sounds += "--CANCEL--"
+
+	var/melody = input("Select a sound from the server to play", "Server sound list", "--CANCEL--") in sounds
+
+	if(melody == "--CANCEL--")	return
+
+	play_sound(melody)
+	feedback_add_details("admin_verb","PSS") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
+
 
 /client/proc/stop_sounds()
 	set category = "Debug"
