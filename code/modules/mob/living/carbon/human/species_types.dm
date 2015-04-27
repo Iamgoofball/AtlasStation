@@ -381,7 +381,7 @@
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/fly
 	blood_color = "#a3a300"
 
-/datum/species/lizard/handle_speech(message)
+/datum/species/kida/handle_speech(message)
 	// jesus christ why
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", "ss")
