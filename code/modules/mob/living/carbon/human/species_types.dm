@@ -330,6 +330,22 @@
 	sexes = 0
 	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/zombie
 
+/datum/species/zombie/handle_speech(message)
+	var/list/message_list = text2list(message, " ")
+	var/maxchanges = max(round(message_list.len / 1.5), 2)
+
+	for(var/i = rand(maxchanges / 2, maxchanges), i > 0, i--)
+		var/insertpos = rand(1, message_list.len - 1)
+		var/inserttext = message_list[insertpos]
+
+		if(!(copytext(inserttext, length(inserttext) - 2) == "..."))
+			message_list[insertpos] = inserttext + "..."
+
+		if(prob(20) && message_list.len > 3)
+			message_list.Insert(insertpos, "[pick("BRAINS", "Brains", "Braaaiinnnsss", "BRAAAIIINNSSS")]...")
+
+	return list2text(message_list, " ")
+
 // Abductor
 /datum/species/abductor
 	name = "Abductor"
@@ -356,18 +372,16 @@
 				//return - technically you can add more aliens to a team
 	return ""
 
-/datum/species/zombie/handle_speech(message)
-	var/list/message_list = text2list(message, " ")
-	var/maxchanges = max(round(message_list.len / 1.5), 2)
 
-	for(var/i = rand(maxchanges / 2, maxchanges), i > 0, i--)
-		var/insertpos = rand(1, message_list.len - 1)
-		var/inserttext = message_list[insertpos]
+/datum/species/kida
+	name = "Kidan"
+	id = "kidan"
+	say_mod = "clicks"
+	meat = /obj/item/weapon/reagent_containers/food/snacks/meat/human/mutant/fly
+	blood_color = "#a3a300"
 
-		if(!(copytext(inserttext, length(inserttext) - 2) == "..."))
-			message_list[insertpos] = inserttext + "..."
-
-		if(prob(20) && message_list.len > 3)
-			message_list.Insert(insertpos, "[pick("BRAINS", "Brains", "Braaaiinnnsss", "BRAAAIIINNSSS")]...")
-
-	return list2text(message_list, " ")
+/datum/species/lizard/handle_speech(message)
+	// jesus christ why
+	if(copytext(message, 1, 2) != "*")
+		message = replacetext(message, "s", "ss")
+		message = replacetext(message, "z", "zz")
