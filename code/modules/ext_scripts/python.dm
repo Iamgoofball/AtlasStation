@@ -6,7 +6,7 @@
 
 	var/command = config.python_path + " " + script + " " + args
 
-	world.log << "testing ext_python \"[command]\""
+	//world.log << "testing ext_python \"[command]\""
 	
 	if(log_command)
 		testing(command)

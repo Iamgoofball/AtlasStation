@@ -301,10 +301,7 @@
 				if("automute_on")
 					automute_on = 1
 				if("comms_password")
-					global.comms_password = value
-					if(value != "default_pwd" && length(value) > 6) //It's the default value or less than 6 characters long, warn badmins
-						global.comms_password = 1
-
+					config.comms_password = value
 				if("irc_bot_host")
 					config.irc_bot_host = value
 				if("irc_bot_port")
