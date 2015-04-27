@@ -13,10 +13,6 @@ var/sound/admin_sound
 
 	sounds_cache += S
 
-	if(alert("Are you sure?\nSong: [S]\nNow you can also play this sound using \"Play Server Sound\".", "Confirmation request" ,"Play", "Cancel") == "Cancel")
-		return
-
-
 	log_admin("[key_name(src)] played sound [S]")
 	message_admins("[key_name_admin(src)] played sound [S]")
 
