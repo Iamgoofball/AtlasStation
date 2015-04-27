@@ -32,6 +32,7 @@
 	var/next_firetime = 0
 	var/list/pod_overlays
 	var/health = 400
+	var/crit = 0 //To prevent message spam when pod's in crit health
 
 /obj/spacepod/New()
 	. = ..()
@@ -92,8 +93,9 @@
 		occupant << S
 	if(!health)
 		spawn(0)
-			if(occupant)
+			if(occupant && !crit)
 				occupant << "<big><span class='warning'>Critical damage to the vessel detected, core explosion imminent!</span></big>"
+				crit = 1
 				for(var/i = 10, i >= 0; --i)
 					if(occupant)
 						occupant << "<span class='warning'>[i]</span>"
@@ -131,6 +133,7 @@
 			return
 		user.drop_item(W, src)
 		battery = W
+		W.forceMove(src)
 		return
 	if(istype(W, /obj/item/device/spacepod_equipment))
 		if(!hatch_open)
@@ -147,7 +150,8 @@
 				user.drop_item(W, equipment_system)
 				equipment_system.weapon_system = W
 				equipment_system.weapon_system.my_atom = src
-				new/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system(src, equipment_system.weapon_system.verb_name, equipment_system.weapon_system.verb_desc) //Yes, it has to be referenced like that. W.verb_name/desc doesn't compile.
+				new/obj/item/device/spacepod_equipment/weaponry/proc/fire_weapon_system(src, equipment_system.weapon_system.verb_name, equipment_system.weapon_system.verb_desc) //Yes, it has to be referenced like that. W.verb_name/desc doesn't compile.	
+				W.forceMove(src)
 				return
 
 

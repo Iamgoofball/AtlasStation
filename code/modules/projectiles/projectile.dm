@@ -132,3 +132,20 @@
 						Bump(original)
 			Range()
 			sleep(1)
+
+/obj/item/projectile/proc/dumbfire(var/dir)
+	spawn()
+		while(loc)
+			if(kill_count < 1)
+				qdel(src)
+				return
+			kill_count--
+			if((!( current ) || loc == current))
+				current = get_ranged_target_turf(src, dir, world.maxx) //world.maxx is the range. Not sure how to handle this better.
+			step_towards(src, current)
+			if(!bumped && ((original && original.layer>=2.75) || ismob(original)))
+				if(loc == get_turf(original))
+					if(!(original in permutated))
+						Bump(original)
+			Range()
+			sleep(1)

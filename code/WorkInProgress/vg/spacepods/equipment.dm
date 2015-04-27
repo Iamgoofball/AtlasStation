@@ -46,15 +46,8 @@
 		projtwo.def_zone = "chest"
 		spawn(0)
 			playsound(my_atom, fire_sound, 50, 1)
-			projone.yo = firstloc.y + 4
-			projone.xo = firstloc.x + 4
-			projone.fire()
-
-			projtwo.yo = secondloc.y + 4
-			projtwo.xo = secondloc.x + 4 //help
-			projtwo.fire()
-			//projone.dumbfire(dir)
-			//projtwo.dumbfire(dir)
+			projone.dumbfire(dir)
+			projtwo.dumbfire(dir)
 		sleep(1)
 	my_atom.next_firetime = world.time + fire_delay
 
