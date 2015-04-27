@@ -5,7 +5,9 @@
 		script = replacetext(script, "/", "\\")
 
 	var/command = config.python_path + " " + script + " " + args
+
+	world.log << "testing ext_python \"[command]\""
+	
 	if(log_command)
-		world.log << "testing ext_python [command]"
 		testing(command)
 	return shell(command)
