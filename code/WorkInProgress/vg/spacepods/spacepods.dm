@@ -32,7 +32,10 @@
 	var/next_firetime = 0
 	var/list/pod_overlays
 	var/health = 400
+	var/max_health = 400
 	var/crit = 0 //To prevent message spam when pod's in crit health
+
+	var/list/datum/action/actions = list()
 
 /obj/spacepod/New()
 	. = ..()
@@ -62,9 +65,9 @@
 		pod_overlays[DAMAGE] = image(icon, icon_state="pod_damage")
 		pod_overlays[FIRE] = image(icon, icon_state="pod_fire")
 
-	if(health <= round(initial(health)/2))
+	if(health <= round(max_health/2))
 		overlays += pod_overlays[DAMAGE]
-		if(health <= round(initial(health)/4))
+		if(health <= round(max_health/4))
 			overlays += pod_overlays[FIRE]
 		else
 			overlays -= pod_overlays[FIRE]
@@ -78,7 +81,7 @@
 /obj/spacepod/proc/deal_damage(var/damage)
 	var/oldhealth = health
 	health = max(0, health - damage)
-	var/percentage = (health / initial(health)) * 100
+	var/percentage = (health / max_health) * 100
 	if(occupant && oldhealth > health && percentage <= 25 && percentage > 0)
 		var/sound/S = sound('sound/effects/engine_alert2.ogg')
 		S.wait = 0 //No queue
@@ -306,6 +309,11 @@
 		src.forceMove(src.loc)
 		//dir = dir_in
 		playsound(src, 'sound/machines/windowdoor.ogg', 50, 1)
+		// for(var/datum/action/A in H.actions)
+		// 	if(A.CheckRemoval(H))
+		// 		A.Remove(H)
+		// for(var/datum/action/A in actions)
+		// 	A.action.Grant(H)
 		return 1
 	else
 		return 0
@@ -327,11 +335,7 @@
 	if (src.occupant)
 		usr << "<span class='notice'><B>The [src.name] is already occupied!</B></span>"
 		return
-/*
-	if (usr.abiotic())
-		usr << "<span class='notice'><B>Subject cannot have abiotic items on.</B></span>"
-		return
-*/
+
 	for(var/mob/living/carbon/slime/M in range(1,usr))
 		if(M.Victim == usr)
 			usr << "You're too busy getting your life sucked out of you."
@@ -357,6 +361,11 @@
 	if(usr != src.occupant)
 		return
 	src.inertia_dir = 0 // engage reverse thruster and power down pod
+	// var/mob/living/L = src.occupant
+	// if(L)
+	// 	for(var/datum/action/A in src.actions)
+	// 		if(A.CheckRemoval(src))
+	// 			A.Remove(src)
 	src.occupant.loc = src.loc
 	src.occupant = null
 	usr << "<span class='notice'>You climb out of the pod</span>"
