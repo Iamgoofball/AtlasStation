@@ -388,3 +388,4 @@
 	if(copytext(message, 1, 2) != "*")
 		message = replacetext(message, "s", "ss")
 		message = replacetext(message, "z", "zz")
+	return message
