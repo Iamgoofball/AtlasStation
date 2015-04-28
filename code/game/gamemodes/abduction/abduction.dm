@@ -199,9 +199,9 @@
 
 /datum/game_mode/abduction/proc/get_team_console(var/team)
 	var/obj/machinery/abductor/console/console
-	for(var/obj/machinery/abductor/console/c in machines)
-		if(c.team == team)
-			console = c
+	for(var/obj/machinery/abductor/console/C in machines)
+		if(C.team == team)
+			console = C
 			break
 	return console
 
